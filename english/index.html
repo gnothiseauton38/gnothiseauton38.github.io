@@ -1,37 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Document</title>
-<style>
-  body, html { margin:0; padding:0; background:#525659; }
-  #viewer { display:flex; flex-direction:column; align-items:center; padding:10px 0; }
-  canvas { margin-bottom:10px; box-shadow:0 0 6px rgba(0,0,0,0.4); max-width:100%; }
-</style>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-<div id="viewer"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js"></script>
-<script>
-  const url = 'en_revolt_against_reason_long.pdf';
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js';
-  const container = document.getElementById('viewer');
-
-  pdfjsLib.getDocument(url).promise.then(function(pdf) {
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const canvas = document.createElement('canvas');
-      container.appendChild(canvas);
-      pdf.getPage(i).then(function(page) {
-        const unscaledWidth = page.getViewport({ scale: 1 }).width;
-        const scale = Math.min(1.5, (window.innerWidth - 20) / unscaledWidth);
-        const viewport = page.getViewport({ scale: scale });
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
-      });
-    }
-  });
-</script>
+  <iframe src="en_revolt_against_reason_long.pdf"></iframe>
 </body>
 </html>
